@@ -21,7 +21,7 @@ import com.example.todoapps.presentation.viewModel.TodosViewModelFactory
 class ToDoFragment : Fragment() {
 
     private var _binding: FragmentEditTodoBinding? = null
-    private lateinit var binding : FragmentToDoBinding
+    private lateinit var binding: FragmentToDoBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,7 +33,7 @@ class ToDoFragment : Fragment() {
         val dao = TodosDatabase.getInstance(application).todosDao
         val viewModelFactory = TodosViewModelFactory(dao)
         val viewModel = ViewModelProvider(this, viewModelFactory)[TodosViewModel::class.java]
-        val adapter = TodoItemAdapter{todoId ->
+        val adapter = TodoItemAdapter { todoId ->
             viewModel.onTodoItemClicked(todoId)
         }
         binding.todoList.adapter = adapter
@@ -41,14 +41,14 @@ class ToDoFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
 
-        viewModel.todos.observe(viewLifecycleOwner){ todosList ->
+        viewModel.todos.observe(viewLifecycleOwner) { todosList ->
             todosList?.let {
                 adapter.submitList(it)
             }
         }
 
-        viewModel.navigateToTodo.observe(viewLifecycleOwner){ todoId ->
-            todoId?.let{
+        viewModel.navigateToTodo.observe(viewLifecycleOwner) { todoId ->
+            todoId?.let {
                 val action = ToDoFragmentDirections.actionToDoFragmentToEditTodoFragment(todoId)
                 this.findNavController().navigate(action)
                 viewModel.onTodoItemNavigate()
@@ -57,18 +57,20 @@ class ToDoFragment : Fragment() {
 
 
         // Handle back press
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                // Check if you are on the home fragment (TodosFragment)
-                if (findNavController().currentDestination?.id == R.id.toDoFragment) {
-                    // If on the home fragment, exit the app
-                    requireActivity().finish()
-                } else {
-                    // If on other fragments, navigate back to the home fragment (TodosFragment)
-                    findNavController().navigate(R.id.toDoFragment)
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    // Check if you are on the home fragment (TodosFragment)
+                    if (findNavController().currentDestination?.id == R.id.toDoFragment) {
+                        // If on the home fragment, exit the app
+                        requireActivity().finish()
+                    } else {
+                        // If on other fragments, navigate back to the home fragment (TodosFragment)
+                        findNavController().navigate(R.id.toDoFragment)
+                    }
                 }
-            }
-        })
+            })
 
         return binding.root
     }
