@@ -24,9 +24,11 @@ class TodosViewModel(val dao: TodosDao) : ViewModel() {
             dao.insert(todo)
         }
     }
+
     fun onTodoItemClicked(todoId: Long) {
         _navigateToTodo.value = todoId
     }
+
     fun onTodoItemNavigate() {
         _navigateToTodo.value = null
     }
@@ -46,6 +48,5 @@ class TodosViewModel(val dao: TodosDao) : ViewModel() {
             }
         }
     }
-
 
 }
