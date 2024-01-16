@@ -71,7 +71,12 @@ class ToDoFragment : Fragment() {
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 // Filter the list based on the entered text
-
+                if (!newText.isNullOrBlank()) {
+                    viewModel.searchTodos(newText)
+                } else {
+                    // Handle empty query, reset the search or show all items
+                    Toast.makeText(requireContext(), "there is nothing like that", Toast.LENGTH_SHORT).show()
+                }
                 return true
             }
         })
