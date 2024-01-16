@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.todoapps.R
@@ -22,12 +23,15 @@ class ToDoFragment : Fragment() {
 
     private var _binding: FragmentEditTodoBinding? = null
     private lateinit var binding: FragmentToDoBinding
+    private lateinit var searchView: SearchView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentToDoBinding.inflate(layoutInflater, container, false)
+
+        searchView = binding.searchView
 
         val application = requireNotNull(this.activity).application
         val dao = TodosDatabase.getInstance(application).todosDao
@@ -53,6 +57,28 @@ class ToDoFragment : Fragment() {
                 this.findNavController().navigate(action)
                 viewModel.onTodoItemNavigate()
             }
+        }
+
+//        Search view code here
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if (!query.isNullOrBlank()) {
+                    viewModel.searchTodos(query)
+                }
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                // Filter the list based on the entered text
+
+                return true
+            }
+        })
+
+        viewModel.searchResults.observe(viewLifecycleOwner) { searchResults ->
+            // Update your adapter with the new search results
+            adapter.submitList(searchResults)
         }
 
 

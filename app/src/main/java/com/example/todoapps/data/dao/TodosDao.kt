@@ -26,4 +26,8 @@ interface TodosDao {
     @Query("SELECT * FROM todos_table ORDER BY id DESC")
     fun getAll(): LiveData<List<Todo>>
 
+    // for search query
+    @Query("SELECT * FROM todos_table WHERE title LIKE :query")
+    fun searchTodos(query: String): List<Todo>
+
 }
