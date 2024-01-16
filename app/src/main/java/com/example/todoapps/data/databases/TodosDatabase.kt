@@ -9,17 +9,17 @@ import com.example.todoapps.data.entity.Todo
 
 @Database(entities = [Todo::class], version = 1, exportSchema = false)
 abstract class TodosDatabase : RoomDatabase() {
-    abstract val todosDao : TodosDao
+    abstract val todosDao: TodosDao
 
-    companion object{
+    companion object {
         private var INSTANCE: TodosDatabase? = null
 
-        fun getInstance(context: Context) : TodosDatabase{
-            synchronized(this){
+        fun getInstance(context: Context): TodosDatabase {
+            synchronized(this) {
                 var instance = INSTANCE
-                if (instance == null){
+                if (instance == null) {
                     instance = Room.databaseBuilder(
-                        context.applicationContext,TodosDatabase::class.java,"todo_database"
+                        context.applicationContext, TodosDatabase::class.java, "todo_database"
                     ).build()
                     INSTANCE = instance
                 }
