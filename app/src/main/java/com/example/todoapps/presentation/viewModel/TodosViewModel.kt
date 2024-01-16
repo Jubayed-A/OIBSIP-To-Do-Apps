@@ -1,8 +1,5 @@
 package com.example.todoapps.presentation.viewModel
 
-import androidx.databinding.Bindable
-import androidx.databinding.InverseMethod
-import androidx.databinding.Observable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
