@@ -21,7 +21,7 @@ interface TodosDao {
     suspend fun delete(todo: Todo)
 
     @Query("SELECT * FROM todos_table WHERE id = :todoId")
-    fun get(todoId : Long) : LiveData<Todo>
+    fun get(todoId: Long): LiveData<Todo>
 
     @Query("SELECT * FROM todos_table ORDER BY id DESC")
     fun getAll(): LiveData<List<Todo>>

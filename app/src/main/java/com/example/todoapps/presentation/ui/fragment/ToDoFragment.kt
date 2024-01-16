@@ -59,7 +59,7 @@ class ToDoFragment : Fragment() {
             }
         }
 
-//        Search view code here
+        // Search view code here
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
