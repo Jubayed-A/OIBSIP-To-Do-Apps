@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.room.Query
 import com.example.todoapps.data.dao.TodosDao
 import com.example.todoapps.data.entity.Todo
 import kotlinx.coroutines.Dispatchers
@@ -15,7 +16,9 @@ class TodosViewModel(val dao: TodosDao) : ViewModel() {
     val todos = dao.getAll()
 
     private val _navigateToTodo = MutableLiveData<Long?>()
+
     val navigateToTodo: LiveData<Long?> get() = _navigateToTodo
+
 
     fun addTodo() {
         viewModelScope.launch {
@@ -36,15 +39,28 @@ class TodosViewModel(val dao: TodosDao) : ViewModel() {
     private val _searchResults = MutableLiveData<List<Todo>>()
     val searchResults: LiveData<List<Todo>> get() = _searchResults
 
+    //    fun searchTodos(query: String) {
+//        viewModelScope.launch {
+//            // Switch to IO dispatcher
+//            withContext(Dispatchers.IO) {
+//                val results = dao.searchTodos("%$query%") // Use % to enable partial matching
+//                // Switch back to the main dispatcher before updating LiveData
+//                withContext(Dispatchers.Main) {
+//                    _searchResults.postValue(results)
+//                }
+//            }
+//        }
+//    }
     fun searchTodos(query: String) {
         viewModelScope.launch {
-            // Switch to IO dispatcher
-            withContext(Dispatchers.IO) {
-                val results = dao.searchTodos("%$query%") // Use % to enable partial matching
-                // Switch back to the main dispatcher before updating LiveData
-                withContext(Dispatchers.Main) {
-                    _searchResults.postValue(results)
+            if (query.isNotBlank()) {
+                val results = withContext(Dispatchers.IO) {
+                    dao.searchTodos("%$query%") // Use % to enable partial matching
                 }
+                _searchResults.postValue(results)
+            } else {
+                // Handle empty query
+                _searchResults.postValue(emptyList())
             }
         }
     }
