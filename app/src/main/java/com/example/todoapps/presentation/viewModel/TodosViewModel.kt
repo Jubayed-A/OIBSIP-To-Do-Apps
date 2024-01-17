@@ -16,7 +16,7 @@ class TodosViewModel(val dao: TodosDao) : ViewModel() {
     val todos = dao.getAll()
 
     private val _navigateToTodo = MutableLiveData<Long?>()
-
+    private var _allTodos: List<Todo> = emptyList()
     val navigateToTodo: LiveData<Long?> get() = _navigateToTodo
 
 
@@ -63,6 +63,10 @@ class TodosViewModel(val dao: TodosDao) : ViewModel() {
                 _searchResults.postValue(emptyList())
             }
         }
+    }
+
+    fun resetSearch() {
+        _searchResults.value = _allTodos
     }
 
 }

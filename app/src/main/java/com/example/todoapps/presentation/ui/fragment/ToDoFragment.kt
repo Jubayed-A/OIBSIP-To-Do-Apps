@@ -75,7 +75,7 @@ class ToDoFragment : Fragment() {
                     viewModel.searchTodos(newText)
                 } else {
                     // Handle empty query, reset the search or show all items
-                    Toast.makeText(requireContext(), "there is nothing like that", Toast.LENGTH_SHORT).show()
+                    viewModel.resetSearch()
                 }
                 return true
             }
