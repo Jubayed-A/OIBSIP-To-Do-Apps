@@ -5,7 +5,6 @@
     tools:context=".presentation.ui.fragment.ToDoFragment">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.example.todoapps.presentation.viewModel.TodosViewModel" />
