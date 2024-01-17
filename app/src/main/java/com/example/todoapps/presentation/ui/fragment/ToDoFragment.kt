@@ -18,7 +18,6 @@ import com.example.todoapps.presentation.ui.adapter.TodoItemAdapter
 import com.example.todoapps.presentation.viewModel.TodosViewModel
 import com.example.todoapps.presentation.viewModel.TodosViewModelFactory
 
-
 class ToDoFragment : Fragment() {
 
     private var _binding: FragmentEditTodoBinding? = null
@@ -110,5 +109,4 @@ class ToDoFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
-
 }
