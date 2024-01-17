@@ -39,18 +39,6 @@ class TodosViewModel(val dao: TodosDao) : ViewModel() {
     private val _searchResults = MutableLiveData<List<Todo>>()
     val searchResults: LiveData<List<Todo>> get() = _searchResults
 
-    //    fun searchTodos(query: String) {
-//        viewModelScope.launch {
-//            // Switch to IO dispatcher
-//            withContext(Dispatchers.IO) {
-//                val results = dao.searchTodos("%$query%") // Use % to enable partial matching
-//                // Switch back to the main dispatcher before updating LiveData
-//                withContext(Dispatchers.Main) {
-//                    _searchResults.postValue(results)
-//                }
-//            }
-//        }
-//    }
     fun searchTodos(query: String) {
         viewModelScope.launch {
             if (query.isNotBlank()) {
