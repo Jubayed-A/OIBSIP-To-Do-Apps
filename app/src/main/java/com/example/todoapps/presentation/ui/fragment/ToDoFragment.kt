@@ -43,7 +43,7 @@ class ToDoFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-
+        // view model code here
         viewModel.todos.observe(viewLifecycleOwner) { todosList ->
             todosList?.let {
                 adapter.submitList(it)
