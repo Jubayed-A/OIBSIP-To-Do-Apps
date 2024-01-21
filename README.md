@@ -3,7 +3,7 @@
  <h1 style="display: inline-block; margin: 0; vertical-align: middle;">TO-DO Application</h1>  
 </div>  
 
-Welcome to the TO-DO App project, This is a simple Android application for taking TO_DO, built using the MVVM architecture and Room Database.
+Welcome to the TO-DO App project, This is a simple Android application for taking TO_DO, built using the MVVM architecture and Room Database. And this app is built for Oaisis Infobyte for Internship Project.
 <!--
 **APK: https://github.com/Jubayed-A/Notes-Application-With-MVVM-and-Room-Database/releases/download/v1.0/notes_app.apk** 
 
