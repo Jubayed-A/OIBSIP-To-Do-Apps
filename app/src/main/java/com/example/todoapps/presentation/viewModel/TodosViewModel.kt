@@ -21,11 +21,13 @@ class TodosViewModel(val dao: TodosDao) : ViewModel() {
     private val _searchResults = MutableLiveData<List<Todo>>()
     val searchResults: LiveData<List<Todo>> get() = _searchResults
 
-//        private var _allTodos: List<Todo> = emptyList()
+    //        private var _allTodos: List<Todo> = emptyList()
     private val _allTodos = MutableLiveData<List<Todo>>()
+
     init {
         loadAllTodos() // Initialize _allTodos
     }
+
     private fun loadAllTodos() {
         viewModelScope.launch {
             dao.getAll().observeForever { allTodosList ->

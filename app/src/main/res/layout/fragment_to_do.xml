@@ -9,6 +9,7 @@
         <variable
             name="viewModel"
             type="com.example.todoapps.presentation.viewModel.TodosViewModel" />
+
     </data>
 
     <LinearLayout
