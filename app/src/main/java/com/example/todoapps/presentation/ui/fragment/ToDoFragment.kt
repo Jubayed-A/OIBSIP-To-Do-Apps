@@ -102,6 +102,12 @@ class ToDoFragment : Fragment() {
                 }
             })
 
+        // Handle close button click in SearchView
+        searchView.setOnCloseListener {
+            viewModel.resetSearch()
+            true
+        }
+
         return binding.root
     }
 

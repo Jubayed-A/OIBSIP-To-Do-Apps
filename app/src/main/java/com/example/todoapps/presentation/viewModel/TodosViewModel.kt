@@ -16,9 +16,30 @@ class TodosViewModel(val dao: TodosDao) : ViewModel() {
     val todos = dao.getAll()
 
     private val _navigateToTodo = MutableLiveData<Long?>()
-    private var _allTodos: List<Todo> = emptyList()
     val navigateToTodo: LiveData<Long?> get() = _navigateToTodo
 
+    private val _searchResults = MutableLiveData<List<Todo>>()
+    val searchResults: LiveData<List<Todo>> get() = _searchResults
+
+//        private var _allTodos: List<Todo> = emptyList()
+    private val _allTodos = MutableLiveData<List<Todo>>()
+    init {
+        loadAllTodos() // Initialize _allTodos
+    }
+    private fun loadAllTodos() {
+        viewModelScope.launch {
+            dao.getAll().observeForever { allTodosList ->
+                // Update _allTodos when the LiveData emits a value
+                _allTodos.value = allTodosList
+            }
+        }
+    }
+
+    fun resetSearch() {
+        _allTodos.value?.let { todosList ->
+            _searchResults.value = todosList
+        }
+    }
 
     fun addTodo() {
         viewModelScope.launch {
@@ -36,9 +57,6 @@ class TodosViewModel(val dao: TodosDao) : ViewModel() {
         _navigateToTodo.value = null
     }
 
-    private val _searchResults = MutableLiveData<List<Todo>>()
-    val searchResults: LiveData<List<Todo>> get() = _searchResults
-
     fun searchTodos(query: String) {
         viewModelScope.launch {
             if (query.isNotBlank()) {
@@ -51,10 +69,6 @@ class TodosViewModel(val dao: TodosDao) : ViewModel() {
                 _searchResults.postValue(emptyList())
             }
         }
-    }
-
-    fun resetSearch() {
-        _searchResults.value = _allTodos
     }
 
 }
