@@ -2,4 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="darkStatusBar">#151515</color>
+    <color name="whiteStatusBar">#FDF6FE</color>
+    <color name="search_color">#FDF6FE</color>
 </resources>
