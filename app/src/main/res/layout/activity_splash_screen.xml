@@ -12,7 +12,7 @@
         android:layout_height="150dp"
         android:contentDescription="@string/todo_app_logo"
         android:scaleType="fitXY"
-        android:src="@drawable/todo_logo"
+        android:src="@drawable/spalsh_screen"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
